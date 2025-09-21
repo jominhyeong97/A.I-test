@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import solo.example.a.i_example.text.dto.TextPostDto;
 import solo.example.a.i_example.text.dto.TextResDto;
+import solo.example.a.i_example.text.dto.TextUpdateDto;
 import solo.example.a.i_example.text.entity.TextIndex;
 import solo.example.a.i_example.text.repository.TextRepository;
 
@@ -35,5 +36,17 @@ public class TextService {
     public TextResDto get(Long id) {
         TextIndex textIndex = textRepository.findById(id).orElseThrow(()->new EntityNotFoundException("해당 값 없습니다."));
         return TextResDto.fromEntity(textIndex);
+    }
+
+    public Long update(Long id, TextUpdateDto textUpdateDto) {
+        TextIndex textIndex = textRepository.findById(id).orElseThrow(()->new EntityNotFoundException("해당 텍스트 없습니다."));
+        textIndex.updateText(textUpdateDto);
+        return textIndex.getId();
+    }
+
+    public Long delete(Long id) {
+        TextIndex textIndex = textRepository.findById(id).orElseThrow(()->new EntityNotFoundException("해당 텍스트 없습니다."));
+        textRepository.deleteById(id);
+        return textIndex.getId();
     }
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class TextResDto {
+    private Long id;
     private String title;
     private String contents;
     private LocalDateTime createdDate;
@@ -20,6 +21,7 @@ public class TextResDto {
 
     public static TextResDto fromEntity(TextIndex textIndex) {
         return TextResDto.builder()
+                .id(textIndex.getId())
                 .title(textIndex.getTitle())
                 .contents(textIndex.getContents())
                 .createdDate(textIndex.getCreatedDate())
